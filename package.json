@@ -1,0 +1,22 @@
+{
+  "name": "Sonnet",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app/app.js",
+  "scripts": {
+    "start": "electron ./app/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WPoets/sonnet.git"
+  },
+  "devDependencies": {
+    "electron": ""
+  },
+  "author": "WPoets Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WPoets/sonnet/issues"
+  },
+  "homepage": "https://github.com/WPoets/sonnet#readme"
+}

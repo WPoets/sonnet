@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photon</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <style>
+		body {
+			width: 100vw;
+			height: 100vh;
+		}
+	</style>
+    <!-- Javascript -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="js/jquery-3.2.1.min.js" charset="utf-8"></script>
+	
+	<script src="js/bootstrap.min.js" charset="utf-8"></script>
+	<script>if (window.module) module = window.module;</script>
+	
+	<!--App files-->
+	<script src="js/menu.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="window">
+
+      <!-- .toolbar-header sits at the top of your app -->
+    <header class="toolbar toolbar-header">
+        <h1 class="title">Photon</h1>
+    </header>
+	<div>
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#hub" aria-controls="home" role="tab" data-toggle="tab">Hub</a></li>
+		<li role="presentation"><a href="#messanger" aria-controls="profile" role="tab" data-toggle="tab">Hangout</a></li>
+		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+	  </ul>
+
+	</div>
+	
+	<!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+	    <!-- Tab panes -->
+		  <div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="hub"> <webview id="foo" src="https://www.wpoets.com/hub" autosize="on" style="width:1250px; height:700px"></webview></div>
+			<div role="tabpanel" class="tab-pane" id="messanger">  <webview id="foo" src="https://hangouts.google.com/" autosize="on" style="width:1250px; height:700px"></webview></div>
+			<div role="tabpanel" class="tab-pane" id="messages">  </div>
+			<div role="tabpanel" class="tab-pane" id="settings">...</div>
+		  </div>
+      </div>
+    </div>
+  </body>
+</html>
