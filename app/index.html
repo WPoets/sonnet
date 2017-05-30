@@ -35,7 +35,7 @@
 		<li role="presentation" class="active"><a href="#hub" aria-controls="home" role="tab" data-toggle="tab">Hub</a></li>
 		<li role="presentation"><a href="#messanger" aria-controls="profile" role="tab" data-toggle="tab">Hangout</a></li>
 		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+		<li role="presentation"><a href="#" class="add-tab" aria-controls="add" role="tab" >Add Plot</a></li>
 	  </ul>
 
 	</div>
@@ -47,9 +47,36 @@
 			<div role="tabpanel" class="tab-pane active" id="hub"> <webview id="foo" src="https://www.wpoets.com/hub" autosize="on" style="width:1250px; height:700px"></webview></div>
 			<div role="tabpanel" class="tab-pane" id="messanger">  <webview id="foo" src="https://hangouts.google.com/" autosize="on" style="width:1250px; height:700px"></webview></div>
 			<div role="tabpanel" class="tab-pane" id="messages">  </div>
-			<div role="tabpanel" class="tab-pane" id="settings">...</div>
+			
 		  </div>
       </div>
     </div>
+	<script>
+	  console.log('ready-to-how');
+	  
+	  jQuery(".nav-tabs").on("click", "a", function (e) {
+		    console.log('rtabw');
+			e.preventDefault();
+			if (!jQuery(this).hasClass('add-tab')) {
+				jQuery(this).tab('show');
+			}
+		})
+		.on("click", "span", function () {
+			var anchor = jQuery(this).siblings('a');
+			jQuery(anchor.attr('href')).remove();
+			jQuery(this).parent().remove();
+			jQuery(".nav-tabs li").children('a').first().click();
+		});
+
+		jQuery('.add-tab').click(function (e) {
+			  console.log('add-to-tab');
+			e.preventDefault();
+			var id = jQuery(".nav-tabs").children().length; //think about it ;)
+			var tabId = 'contact_' + id;
+			jQuery(this).closest('li').before('<li><a href="#contact_' + id + '">New Tab</a> <span> x </span></li>');
+			jQuery('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><webview id="foo" src="https://hangouts.google.com/" autosize="on" style="width:1250px; height:700px"></webview></div>');
+		   jQuery('.nav-tabs li:nth-child(' + id + ') a').click();
+		});
+	</script>
   </body>
 </html>

@@ -31,13 +31,10 @@ app.on('ready', function() {
     'accept-first-mouse': true,
     'title-bar-style': 'hidden'
   });
+// Open the DevTools.
+  mainWindow.openDevTools();
 
-  // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-
-  // Open the DevTools.
-  //mainWindow.openDevTools();
-
+ 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -45,4 +42,15 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+  
+  mainWindow.on('show', function() {
+	
+  });
+  
+   // and load the index.html of the app.
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+  
 });
+
+//
