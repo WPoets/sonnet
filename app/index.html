@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Photon</title>
+    <title>Sonnet - One Team One Delivery</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/photon.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
      <style>
-		body {
-			width: 100vw;
-			height: 100vh;
+		html, body {
+		   width: 100%;
+		   height: 100%;
+		   margin: 0;
+		   padding: 0;
+		}
+		.tab-content, .tab-pane{
+			width:100%; 
+			height:100%;
+			
 		}
 	</style>
     <!-- Javascript -->
@@ -27,15 +34,15 @@
 
       <!-- .toolbar-header sits at the top of your app -->
     <header class="toolbar toolbar-header">
-        <h1 class="title">Photon</h1>
+        <h1 class="title">Sonnet <span class='indicator'></span></h1>
     </header>
 	<div>
 	  <!-- Nav tabs -->
 	  <ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#hub" aria-controls="home" role="tab" data-toggle="tab">Hub</a></li>
+		<li role="presentation" class="active"><a href="#hub" aria-controls="home" role="tab" data-toggle="tab">Hub </a></li>
 		<li role="presentation"><a href="#messanger" aria-controls="profile" role="tab" data-toggle="tab">Hangout</a></li>
 		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-		<li role="presentation"><a href="#" class="add-tab" aria-controls="add" role="tab" >Add Plot</a></li>
+		<li role="presentation"><a href="#" class="add-tab" aria-controls="add" role="tab" ><span class="glyphicon glyphicon-plus"></span>Add Plot</a></li>
 	  </ul>
 
 	</div>
@@ -44,21 +51,24 @@
       <div class="window-content">
 	    <!-- Tab panes -->
 		  <div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="hub"> <webview id="foo" src="https://www.wpoets.com/hub" autosize="on" style="width:1250px; height:700px"></webview></div>
-			<div role="tabpanel" class="tab-pane" id="messanger">  <webview id="foo" src="https://hangouts.google.com/" autosize="on" style="width:1250px; height:700px"></webview></div>
+			<div role="tabpanel" class="tab-pane active" id="hub"> <webview id="foo" src="https://www.wpoets.com/hub" autosize="on" style="display:flex; min-width:640px; min-height:480px" ></webview></div>
+			<div role="tabpanel" class="tab-pane" id="messanger">  <webview id="foo" src="https://hangouts.google.com/" autosize="on" style="display:flex; min-width:640px; min-height:480px"></webview></div>
 			<div role="tabpanel" class="tab-pane" id="messages">  </div>
 			
 		  </div>
       </div>
     </div>
 	<script>
-	  console.log('ready-to-how');
-	  
+	  var electron = require('electron');
+	  var currentWindow = electron.remote.getCurrentWindow();
+		
 	  jQuery(".nav-tabs").on("click", "a", function (e) {
-		    console.log('rtabw');
+		    
 			e.preventDefault();
 			if (!jQuery(this).hasClass('add-tab')) {
 				jQuery(this).tab('show');
+				
+				currentWindow.setTitle(jQuery(this).html());
 			}
 		})
 		.on("click", "span", function () {
@@ -69,14 +79,31 @@
 		});
 
 		jQuery('.add-tab').click(function (e) {
-			  console.log('add-to-tab');
+			  
 			e.preventDefault();
 			var id = jQuery(".nav-tabs").children().length; //think about it ;)
 			var tabId = 'contact_' + id;
 			jQuery(this).closest('li').before('<li><a href="#contact_' + id + '">New Tab</a> <span> x </span></li>');
-			jQuery('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><webview id="foo" src="https://hangouts.google.com/" autosize="on" style="width:1250px; height:700px"></webview></div>');
+			jQuery('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><webview id="foo" src="https://hangouts.google.com/" autosize="on" style="min-width:1250px; min-height:700px"></webview></div>');
 		   jQuery('.nav-tabs li:nth-child(' + id + ') a').click();
 		});
 	</script>
+	<script>
+  onload = () => {
+    const webview = document.querySelector('webview')
+    const indicator = document.querySelector('.indicator')
+
+    const loadstart = () => {
+      indicator.innerText = 'loading...'
+    }
+
+    const loadstop = () => {
+      indicator.innerText = ''
+    }
+
+    webview.addEventListener('did-start-loading', loadstart)
+    webview.addEventListener('did-stop-loading', loadstop)
+  }
+</script>
   </body>
 </html>

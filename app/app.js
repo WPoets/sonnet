@@ -24,6 +24,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    title: 'Sonnet - One Team One Delivery',
     width: 1200,
     height: 800,
     'min-width': 500,
@@ -32,7 +33,10 @@ app.on('ready', function() {
     'title-bar-style': 'hidden'
   });
 // Open the DevTools.
-  mainWindow.openDevTools();
+  mainWindow.center();
+  mainWindow.maximize();
+  //mainWindow.openDevTools();
+ 
 
  
   // Emitted when the window is closed.
