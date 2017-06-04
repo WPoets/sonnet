@@ -61,7 +61,8 @@
 	<script>
 	  var electron = require('electron');
 	  var currentWindow = electron.remote.getCurrentWindow();
-		
+	 
+	  
 	  jQuery(".nav-tabs").on("click", "a", function (e) {
 		    
 			e.preventDefault();
@@ -83,13 +84,36 @@
 			e.preventDefault();
 			var id = jQuery(".nav-tabs").children().length; //think about it ;)
 			var tabId = 'contact_' + id;
-			jQuery(this).closest('li').before('<li><a href="#contact_' + id + '">New Tab</a> <span> x </span></li>');
-			jQuery('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><webview id="foo" src="https://hangouts.google.com/" autosize="on" style="min-width:1250px; min-height:700px"></webview></div>');
-		   jQuery('.nav-tabs li:nth-child(' + id + ') a').click();
+			jQuery(this).closest('li').before('<li><a href="#' + tabId + '" class="tab'+id+'">New Tab</a> <span> x </span></li>');
+			jQuery('.tab-content').append('<div class="tab-pane" id="' + tabId + '"><webview id="wv'+id+'" src="file://' + __dirname + '/new-tab.html" preload="./new-tab.js" autosize="on" style="min-width:1250px; min-height:700px"></webview></div>');
+			
+		    jQuery('.nav-tabs li:nth-child(' + id + ') a').click();
+		    var wv=document.querySelector('#wv'+id);
+		    wv.addEventListener("dom-ready", function() {
+				wv.openDevTools();
+			});	
+			wv.addEventListener("ipc-message", function (e) {
+			  console.log(e);
+			  if (e.channel === "tab-data") {
+				// console.log(e.args[0]);
+
+				$(".nav.nav-tabs li.active a").html(e.args[0].label);
+				currentWindow.setTitle(e.args[0].label);
+				this.loadURL(e.args[0].url);
+			  }
+			 
+			});
+			wv.addEventListener('did-start-loading', function(){
+				$('.indicator').html('loading...');
+			})
+			wv.addEventListener('did-stop-loading',  function(){
+				$('.indicator').html('');
+			})
 		});
-	</script>
-	<script>
+		
+	
   onload = () => {
+
     const webview = document.querySelector('webview')
     const indicator = document.querySelector('.indicator')
 
@@ -103,7 +127,11 @@
 
     webview.addEventListener('did-start-loading', loadstart)
     webview.addEventListener('did-stop-loading', loadstop)
+	
   }
+  
+  
+  
 </script>
   </body>
 </html>

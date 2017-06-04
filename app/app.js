@@ -35,7 +35,7 @@ app.on('ready', function() {
 // Open the DevTools.
   mainWindow.center();
   mainWindow.maximize();
-  //mainWindow.openDevTools();
+  mainWindow.openDevTools();
  
 
  
@@ -56,5 +56,3 @@ app.on('ready', function() {
 
   
 });
-
-//
