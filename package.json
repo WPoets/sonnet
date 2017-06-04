@@ -1,22 +1,32 @@
 {
-  "name": "Sonnet",
-  "version": "0.0.1",
-  "description": "",
+  "name": "sonnet",
+  "productName": "Sonnet",
+  "version": "0.1.0",
+  "description": "Sonnet is WPoets tool to mange projects and internal communication.",
   "main": "app/app.js",
   "scripts": {
-    "start": "electron ./app/app"
+    "start": "electron ./app/app",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=x64  --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Sonnet\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WPoets/sonnet.git"
   },
   "devDependencies": {
-    "electron": ""
+    "electron": "^1.6.0",
+    "electron-store": "^1.0.0",
+    "electron-packager": "^8.1.0"
   },
   "author": "WPoets Team",
-  "license": "ISC",
+  "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/WPoets/sonnet/issues"
   },
-  "homepage": "https://github.com/WPoets/sonnet#readme"
+  "homepage": "https://github.com/WPoets/sonnet#readme",
+  "dependencies": {
+    "electron": "^1.6.10",
+    "electron-store": "^1.0.0"
+  }
 }

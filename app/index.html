@@ -61,11 +61,11 @@
 	<script>
 	  var electron = require('electron');
 	  var currentWindow = electron.remote.getCurrentWindow();
-	 
+	  const {shell} = require('electron');
+		
 	  const Store = require('electron-store');
 	  const store = new Store();
 	  var sonnet = store.get('sonnet',{"items":[]});
-	  console.log(sonnet);
 	  jQuery.each(sonnet.items, function( key, value ) {
 		  
 			var id = jQuery(".nav-tabs").children().length; //think about it ;)
@@ -136,6 +136,14 @@
 			wv.addEventListener('did-stop-loading',  function(){
 				$('.indicator').html('');
 			})
+			
+			wv.addEventListener('new-window', (e) => {
+			  const protocol = require('url').parse(e.url).protocol
+			  if (protocol === 'http:' || protocol === 'https:') {
+				shell.openExternal(e.url)
+			  }
+			});
+			
 		});
 		
 	
@@ -154,7 +162,12 @@
 
     webview.addEventListener('did-start-loading', loadstart)
     webview.addEventListener('did-stop-loading', loadstop)
-	
+	webview.addEventListener('new-window', (e) => {
+	  const protocol = require('url').parse(e.url).protocol
+	  if (protocol === 'http:' || protocol === 'https:') {
+		shell.openExternal(e.url)
+	  }
+	});
   }
   
   

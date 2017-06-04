@@ -26,8 +26,8 @@ function processForm(e) {
 		"label": label,
 		"url": url
 	  };
-	 console.log(data);
-	 console.log(currentWindow);
+	// console.log(data);
+	// console.log(currentWindow);
 	  electron.ipcRenderer.sendToHost("tab-data", data);
 	  //currentWindow.src=url;
 	  currentWindow.location=url;
